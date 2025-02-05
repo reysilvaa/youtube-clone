@@ -61,19 +61,19 @@ const Actions = styled.div`
 export const Header = ({ toggleSidebar }: { toggleSidebar: () => void }) => (
   <HeaderContainer>
     <LogoSection>
-      <Menu size={24} onClick={toggleSidebar} style={{ cursor: 'pointer' }} />
-      <img src="/logo.png" alt="YouTube" height="20" />
+      <Menu size={30} onClick={toggleSidebar} style={{ cursor: 'pointer' }} />
+      <img src="/logo.png" alt="YouTube" height="30" />
     </LogoSection>
     <SearchSection>
       <SearchBar>
         <input type="text" placeholder="Telusuri" />
-        <Search size={20} />
+        <Search size={30} />
       </SearchBar>
     </SearchSection>
     <Actions>
-      <Video size={24} />
-      <Bell size={24} />
-      <User size={24} />
+      <Video size={30} />
+      <Bell size={30} />
+      <User size={30} />
     </Actions>
   </HeaderContainer>
 );
