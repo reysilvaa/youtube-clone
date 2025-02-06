@@ -1,37 +1,31 @@
-"use client";
-import { useState } from 'react';
-import { Header } from './components/Header/Header';
-import { Sidebar } from './components/Sidebar/Sidebar';
-import StyledComponentsRegistry from './lib/registry/registry';
-import { Roboto } from 'next/font/google';
-import './globals.css'; // Ensure this file is present for additional styles
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { ThemeProvider } from './components/providers/theme-provider';
 
-// Use Google Font Roboto Medium
-const roboto = Roboto({
-  weight: '500', // Medium
-  subsets: ['latin'],
-  variable: '--font-roboto' // CSS Variable
-});
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'YouTube Clone',
+  description: 'YouTube Clone built with Next.js and Tailwind CSS',
+};
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(prevState => !prevState);
-  };
-
   return (
-    <html lang="en" className={roboto.variable}>
-      <body>
-        <StyledComponentsRegistry>
-          <Header toggleSidebar={toggleSidebar} />
-          <Sidebar isopen={isSidebarOpen} />
-          <main>{children}</main>
-        </StyledComponentsRegistry>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

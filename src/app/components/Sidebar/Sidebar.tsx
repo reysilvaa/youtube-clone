@@ -1,131 +1,33 @@
+
+// components/Sidebar.tsx
 'use client';
-import styled from 'styled-components';
-import { Home, Clock, ThumbsUp, Play, ListVideo } from 'lucide-react';
 
-// SidebarContainer styled component receives isopen prop, but it's not passed to a DOM element
-const SidebarContainer = styled.div<{ isopen: boolean }>`
-  position: fixed;
-  left: 0;
-  top: var(--header-height);
-  bottom: 0;
-  width: ${({ isopen }) => (isopen ? 'var(--sidebar-width)' : '60px')};
-  background: var(--background);
-  padding: 12px 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  transition: width 0.3s ease;
-  z-index: 100;
-`;
+import { Home, Compass, Clock, ThumbsUp, PlaySquare, Film, Newspaper } from 'lucide-react';
 
-const IconWrapper = styled.div`
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+export const Sidebar = () => {
+  const menuItems = [
+    { icon: Home, label: 'Home' },
+    { icon: Compass, label: 'Explore' },
+    { icon: Clock, label: 'History' },
+    { icon: ThumbsUp, label: 'Liked Videos' },
+    { icon: PlaySquare, label: 'Your Videos' },
+    { icon: Film, label: 'Movies' },
+    { icon: Newspaper, label: 'News' },
+  ];
 
-  svg {
-    width: 24px;
-    height: 24px;
-  }
-`;
-
-const MenuItem = styled.div<{ isopen: boolean }>`
-  display: flex;
-  align-items: center;
-  padding: 8px 24px;
-  cursor: pointer;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  &:hover {
-    background: var(--hover-background);
-  }
-
-  span {
-    margin-left: 24px;
-    font-size: 14px;
-    color: var(--text-primary);
-    display: ${({ isopen }) => (isopen ? 'inline' : 'none')}; /* Hide text when sidebar is closed */
-  }
-
-  img {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-  }
-`;
-
-const SectionTitle = styled.div`
-  padding: 8px 24px;
-  font-size: 16px;
-  color: var(--text-secondary);
-  margin-top: 12px;
-`;
-
-export const Sidebar = ({ isopen }: { isopen: boolean }) => (
-  <SidebarContainer isopen={isopen}>
-    <MenuItem isopen={isopen}>
-      <IconWrapper>
-        <Home />
-      </IconWrapper>
-      <span>Beranda</span>
-    </MenuItem>
-    <MenuItem isopen={isopen}>
-      <IconWrapper>
-        <Play />
-      </IconWrapper>
-      <span>Shorts</span>
-    </MenuItem>
-    <MenuItem isopen={isopen}>
-      <IconWrapper>
-        <ListVideo />
-      </IconWrapper>
-      <span>Subscription</span>
-    </MenuItem>
-
-    <SectionTitle>Anda</SectionTitle>
-    <MenuItem isopen={isopen}>
-      <IconWrapper>
-        <Clock />
-      </IconWrapper>
-      <span>Histori</span>
-    </MenuItem>
-    <MenuItem isopen={isopen}>
-      <IconWrapper>
-        <Play />
-      </IconWrapper>
-      <span>Video Anda</span>
-    </MenuItem>
-    <MenuItem isopen={isopen}>
-      <IconWrapper>
-        <Clock />
-      </IconWrapper>
-      <span>Tonton nanti</span>
-    </MenuItem>
-    <MenuItem isopen={isopen}>
-      <IconWrapper>
-        <ThumbsUp />
-      </IconWrapper>
-      <span>Video yang disukai</span>
-    </MenuItem>
-
-    <SectionTitle>Subscription</SectionTitle>
-    <MenuItem isopen={isopen}>
-      <img src="/avatar1.jpg" alt="Channel" />
-      <span>Lah Kok Iso</span>
-    </MenuItem>
-    <MenuItem isopen={isopen}>
-      <img src="/avatar2.jpg" alt="Channel" />
-      <span>Bryan Furran</span>
-    </MenuItem>
-    <MenuItem isopen={isopen}>
-      <IconWrapper>
-        <ListVideo />
-      </IconWrapper>
-      <span>Semua subscription</span>
-    </MenuItem>
-  </SidebarContainer>
-);
+  return (
+    <aside className="fixed left-0 top-14 h-full w-64 dark:bg-zinc-900 bg-white overflow-y-auto">
+      <div className="py-2">
+        {menuItems.map((item, index) => (
+          <button
+            key={index}
+            className="w-full flex items-center gap-4 px-6 py-2 hover:bg-gray-100 dark:hover:bg-zinc-800 dark:text-white text-black"
+          >
+            <item.icon className="w-5 h-5" />
+            <span>{item.label}</span>
+          </button>
+        ))}
+      </div>
+    </aside>
+  );
+};

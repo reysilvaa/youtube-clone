@@ -1,41 +1,9 @@
 
-// src/components/VideoCard/VideoCard.tsx
-"use client";
-import React from 'react';
-import styled from 'styled-components';
-
-const Card = styled.div`
-  width: 100%;
-  cursor: pointer;
-`;
-
-const Thumbnail = styled.img`
-  width: 100%;
-  aspect-ratio: 16/9;
-  object-fit: cover;
-  border-radius: 12px;
-`;
-
-const Details = styled.div`
-  padding: 0.75rem 0;
-`;
-
-const Title = styled.h3`
-  font-size: 1rem;
-  margin: 0;
-`;
-
-const ChannelInfo = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 0.5rem;
-  color: #606060;
-  font-size: 0.9rem;
-`;
+// components/VideoCard.tsx
+'use client';
 
 interface VideoCardProps {
   video: {
-    id: string;
     thumbnail: string;
     title: string;
     channel: string;
@@ -46,18 +14,30 @@ interface VideoCardProps {
 
 export const VideoCard = ({ video }: VideoCardProps) => {
   return (
-    <Card>
-      <Thumbnail src={video.thumbnail} alt={video.title} />
-      <Details>
-        <Title>{video.title}</Title>
-        <ChannelInfo>
-          <span>{video.channel}</span>
-          <span>•</span>
-          <span>{video.views} views</span>
-          <span>•</span>
-          <span>{video.timestamp}</span>
-        </ChannelInfo>
-      </Details>
-    </Card>
+    <div className="flex flex-col gap-2">
+      <div className="relative aspect-video rounded-xl overflow-hidden">
+        <img
+          src={video.thumbnail}
+          alt={video.title}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="flex gap-3">
+        <div className="flex-shrink-0">
+          <div className="w-9 h-9 rounded-full bg-gray-200"></div>
+        </div>
+        <div>
+          <h3 className="font-medium line-clamp-2 dark:text-white text-black">
+            {video.title}
+          </h3>
+          <p className="text-sm dark:text-gray-400 text-gray-600">
+            {video.channel}
+          </p>
+          <p className="text-sm dark:text-gray-400 text-gray-600">
+            {video.views} • {video.timestamp}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };

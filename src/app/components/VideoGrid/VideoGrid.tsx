@@ -1,37 +1,26 @@
 
-// src/components/VideoGrid/VideoGrid.tsx
-"use client";
-import React from 'react';
-import styled from 'styled-components';
-import { VideoCard } from '../VideoCard/VideoCard';
+// components/VideoGrid.tsx
+'use client';
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
-  margin-left: 240px;
-  margin-top: 60px;
-`;
+import { VideoCard } from "../VideoCard/VideoCard";
 
 export const VideoGrid = () => {
   const videos = [
     {
-      id: '1',
-      thumbnail: '/thumbnail1.jpg',
-      title: 'Sample Video 1',
-      channel: 'Channel Name',
-      views: '100K',
-      timestamp: '2 days ago',
+      thumbnail: '/api/placeholder/1280/720',
+      title: 'Building a YouTube Clone with Next.js and Tailwind CSS',
+      channel: 'Code Tutorial',
+      views: '100K views',
+      timestamp: '2 days ago'
     },
-    // Add more video objects
+    // Add more video objects here...
   ];
 
   return (
-    <Grid>
-      {videos.map((video) => (
-        <VideoCard key={video.id} video={video} />
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
+      {videos.map((video, index) => (
+        <VideoCard key={index} video={video} />
       ))}
-    </Grid>
+    </div>
   );
 };
