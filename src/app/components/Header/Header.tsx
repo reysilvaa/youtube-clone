@@ -1,3 +1,5 @@
+
+// components/Header.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -10,7 +12,7 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const { toggleSidebar, isCollapsed } = useSidebar();  // assuming you have isSidebarOpen from the context
+  const { toggleSidebar } = useSidebar();
 
   useEffect(() => {
     setMounted(true);
@@ -19,27 +21,17 @@ export const Header = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-
-    // Adding window resize listener to handle sidebars
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        // Close sidebar for larger screens
-        if (isCollapsed) {
-          toggleSidebar();
-        }
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isCollapsed, toggleSidebar]);
+  }, []);
 
   if (!mounted) return null;
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 bg-white dark:bg-zinc-900 ${isScrolled ? 'shadow-md' : ''}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 bg-white dark:bg-zinc-900 ${
+      isScrolled ? 'shadow-md' : ''
+    }`}>
       <div className="flex items-center justify-between h-20 px-4">
         <div className="flex items-center gap-4">
-          <button
+          <button 
             onClick={toggleSidebar}
             className="p-2 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-full"
           >
@@ -66,7 +58,7 @@ export const Header = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <button
+          <button 
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="p-2 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-full"
           >
