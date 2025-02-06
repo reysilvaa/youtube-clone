@@ -1,14 +1,18 @@
+
+// components/Header.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
 import { Menu, Search, Bell, User, Moon, Sun } from 'lucide-react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
+import { useSidebar } from '../providers/sidebar-provider';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { toggleSidebar } = useSidebar();
 
   useEffect(() => {
     setMounted(true);
@@ -27,15 +31,17 @@ export const Header = () => {
     }`}>
       <div className="flex items-center justify-between h-14 px-4">
         <div className="flex items-center gap-4">
-          <button className="p-2 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-full">
+          <button 
+            onClick={toggleSidebar}
+            className="p-2 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-full"
+          >
             <Menu className="w-6 h-6 dark:text-white text-black" />
           </button>
           <Link href="/" className="flex items-center gap-1">
-            <img src="/youtube-logo.png" alt="YouTube" className="h-5" />
-            <span className="font-semibold dark:text-white text-black">YouTube</span>
+            <img src="/logo.png" alt="YouTube" className="h-9" />
+            {/* <span className="font-semibold dark:text-white text-black">YouTube</span> */}
           </Link>
         </div>
-
         <div className="flex-1 max-w-2xl mx-4">
           <div className="flex items-center">
             <div className="flex-1 flex items-center">
