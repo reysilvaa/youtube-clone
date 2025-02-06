@@ -1,5 +1,3 @@
-
-// components/Header.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -10,6 +8,7 @@ import { useSidebar } from '../providers/sidebar-provider';
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const { toggleSidebar } = useSidebar();
@@ -19,19 +18,31 @@ export const Header = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
     };
+
+    // Set the mobile flag based on window width
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // Adjust breakpoint as needed
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+
+    // Initial check for mobile view
+    handleResize();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   if (!mounted) return null;
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 bg-white dark:bg-zinc-900 ${
-      isScrolled ? 'shadow-md' : ''
-    }`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 bg-white dark:bg-zinc-900 ${isScrolled ? 'shadow-md' : ''}`}>
       <div className="flex items-center justify-between h-20 px-4">
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={toggleSidebar}
             className="p-2 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-full"
           >
@@ -58,7 +69,7 @@ export const Header = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <button 
+          <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="p-2 hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-full"
           >
@@ -76,6 +87,18 @@ export const Header = () => {
           </button>
         </div>
       </div>
+
+      {/* Conditionally render the sidebar button for mobile */}
+      {isMobile && (
+        <div className="fixed bottom-4 right-4 z-50">
+          <button
+            onClick={toggleSidebar}
+            className="p-4 bg-gray-800 text-white rounded-full shadow-lg"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
+      )}
     </header>
   );
 };
