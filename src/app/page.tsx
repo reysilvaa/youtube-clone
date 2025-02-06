@@ -1,19 +1,18 @@
-
 // app/page.tsx
 'use client';
-import clsx from 'clsx';
 import { Header } from './components/Header/Header';
 import { Sidebar } from './components/Sidebar/Sidebar';
 import { VideoGrid } from './components/VideoGrid/VideoGrid';
 import { SidebarProvider } from './components/providers/sidebar-provider';
 import { useSidebar } from './components/providers/sidebar-provider';
+import { cn } from './lib/utils';
 
 function MainContent() {
   const { isCollapsed } = useSidebar();
   
   return (
-    <main className={clsx(
-      "pt-14 transition-all duration-300",
+    <main className={cn(
+      "pt-24 pb-8 transition-all duration-300", 
       isCollapsed ? "ml-16" : "ml-64"
     )}>
       <VideoGrid />

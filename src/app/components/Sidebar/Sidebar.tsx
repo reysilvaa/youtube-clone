@@ -21,7 +21,7 @@ export const Sidebar = () => {
 
   return (
     <aside className={cn(
-      "fixed left-0 top-14 h-full bg-white dark:bg-zinc-900 overflow-y-auto transition-all duration-300",
+      "fixed left-0 top-20 h-full bg-white dark:bg-zinc-900 overflow-y-auto transition-all duration-300",
       isCollapsed ? "w-16" : "w-64"
     )}>
       <div className="py-2">
@@ -29,11 +29,11 @@ export const Sidebar = () => {
           <button
             key={index}
             className={cn(
-              "w-full flex items-center gap-4 px-3 py-2 hover:bg-gray-100 dark:hover:bg-zinc-800 dark:text-white text-black",
+              "w-full flex items-center gap-7 px-3 py-4 hover:bg-gray-100 dark:hover:bg-zinc-800 dark:text-white text-black",
               isCollapsed && "justify-center"
             )}
           >
-            <item.icon className="w-5 h-5" />
+            <item.icon className="w-9 h-5" />
             {!isCollapsed && <span>{item.label}</span>}
           </button>
         ))}
